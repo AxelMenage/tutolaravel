@@ -38,6 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'ip'], function(){
 
 });
 
+
 Route::resource('welcome', 'WelcomeController', ['only' => ['create', 'store']]);
 
 Route::get('a-propos', ['as'=> 'about', 'uses'=>'PagesController@about']);
@@ -52,3 +53,11 @@ Route::get('r/{id}', 'LinksController@show')->where('id', '[0-9]+');
 */
 
 Route::resource('news', 'PostsController');
+
+Route::group(['namespace' => 'Admin', 'prefix'=>'admin'], function(){
+	Route::resource('posts', 'PostsController');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
